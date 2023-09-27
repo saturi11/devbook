@@ -5,24 +5,25 @@ import (
 	"database/sql"
 )
 
-// recebe a instancia do banco de dados
+// Usuarios representa um repositório de usuarios
 type Usuarios struct {
 	db *sql.DB
 }
 
-// NovoRepDeUsuarios cria um repositorio de usuarios e retorna a conexao com o banco para o usuarios struct
-func NovoRepDeUsuarios(db *sql.DB) *Usuarios {
+// NovoRepositorioDeUsuarios cria um repositório de usuários
+func NovoRepositorioDeUsuarios(db *sql.DB) *Usuarios {
 	return &Usuarios{db}
 }
 
-// Criar insere um usuario no banco de dados
+// Criar insere um usuário no banco de dados
 func (repositorio Usuarios) Criar(usuario modelos.Usuario) (uint64, error) {
 	statement, erro := repositorio.db.Prepare(
-		"insert into usuarios (nome, nick, email, senha) values(?, ?, ?, ?)",
+		"INSERT INTO  usuarios (nome, nick, email, senha) VALUES(?, ?, ?, ?)",
 	)
 	if erro != nil {
 		return 0, erro
 	}
+
 	defer statement.Close()
 
 	resultado, erro := statement.Exec(usuario.Nome, usuario.Nick, usuario.Email, usuario.Senha)
