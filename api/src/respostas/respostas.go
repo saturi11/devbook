@@ -9,9 +9,13 @@ import (
 // JSON recebe o status code da resposta, adiciona esse codigo ao WriteHeader, recebe tambem os dados passados pelos parametros e convertem ao JSON
 func JSON(w http.ResponseWriter, statusCode int, dados interface{}) {
 	w.WriteHeader(statusCode)
-	if erro := json.NewEncoder(w).Encode(dados); erro != nil {
-		log.Fatal(erro)
+
+	if dados != nil {
+		if erro := json.NewEncoder(w).Encode(dados); erro != nil {
+			log.Fatal(erro)
+		}
 	}
+
 }
 
 // Erro retorna um erro em formato JSON
