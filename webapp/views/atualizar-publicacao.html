@@ -1,0 +1,35 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>DevBook - Atualizar Publicacao - {{ .Titulo}}</title>
+    <link href="/assets/css/bootstrap.css" rel="stylesheet" />
+</head>
+<body>
+    {{template "cabecalho"}}
+    <div class="container-fluid">
+        <div class="row mt-4">
+            <div class="col-12">
+                <h3>Atualizar Publicacao</h3>
+                <div class="form-group">
+                    <label for="titulo">Titulo</label>
+                    <input type="text" class="form-control" id="titulo" name="titulo" placeholder="Insira aqui o titulo da sua publicacao" value="{{ .Titulo}}">
+                </div>
+                <div class="form-group">
+                    <label for="titulo">Titulo</label>
+                    <textarea class="form-control" id="conteudo" name="conteudo" placeholder="Insira aqui o conteudo da sua publicacao">{{ .Conteudo}}</textarea>
+                </div>
+                <button id="atualizar-publicacao" class="btn btn-info" data-publicacao-id="{{ .ID }}">
+                   Salvar Alteracoes
+                </button>
+            </div>
+        </div>
+    </div>
+
+</body>
+
+{{template "rodape" }}
+{{template "script" }}
+<script src="/assets/js/publicacoes.js"></script>
+</html>

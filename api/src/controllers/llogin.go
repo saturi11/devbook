@@ -1,6 +1,7 @@
 package controllers
 
 import (
+	"api/src/autenticacao"
 	"api/src/banco"
 	"api/src/modelos"
 	"api/src/repositorios"
@@ -9,6 +10,7 @@ import (
 	"encoding/json"
 	"io"
 	"net/http"
+	"strconv"
 )
 
 func Login(w http.ResponseWriter, r *http.Request) {
@@ -45,5 +47,14 @@ func Login(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	w.Write([]byte("login realizado!"))
+	token, erro := autenticacao.CriarToken(usuarioSalvoNoBanco.ID)
+	if erro != nil {
+		respostas.Erro(w, http.StatusInternalServerError, erro)
+		return
+	}
+
+	usuarioID := strconv.FormatUint(usuarioSalvoNoBanco.ID, 10)
+
+	respostas.JSON(w, http.StatusOK, modelos.DadosAutenticacao{ID: usuarioID, Token: token})
+
 }
